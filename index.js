@@ -33,7 +33,11 @@ function playRound(humanChoice, computerChoice) {
         ++computerScore
     }
     console.log("the score is " + humanScore +" to " + computerScore)
-    return prompt("play again?").toLowerCase().includes("y");
+    again = prompt("play again?");
+    if (again == null) {
+        return false
+    }
+    return prompt.toLowerCase().includes("y");
 }
 
 
