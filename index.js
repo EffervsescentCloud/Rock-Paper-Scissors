@@ -26,10 +26,13 @@ function playRound(humanChoice, computerChoice) {
     }
     else if (result == 1) {
         console.log("you won, because you chose " + humanChoice + " which beats " + computerChoice)
+        ++humanScore
     }
     else {
         console.log("computer won, because it chose " + computerChoice + " which beats " + humanChoice)
+        ++computerScore
     }
+    console.log("the score is " + humanScore +" to " + computerScore)
     return prompt("play again?").toLowerCase().includes("y");
 }
 
