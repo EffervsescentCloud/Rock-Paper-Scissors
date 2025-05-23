@@ -1,5 +1,3 @@
-let choices = ["rock", "paper", "scissors"];
-
 function getComputerChoice () {
     let randomNumber = Math.floor(Math.random()*3);
     return choices[randomNumber];
@@ -7,15 +5,42 @@ function getComputerChoice () {
 function getHumanChoice() {
     let humanChoice = prompt("Choose rock, paper, or scissors");
     while (true) {
-        if (choices.includes(humanChoice)) {
-            return humanChoice;
+        if (humanChoice === null) {
+            return
+        }
+        else if (choices.includes(humanChoice.toLowerCase())) {
+            return humanChoice.toLowerCase();
         }
         else {
-            humanChoice = prompt("Choice invalid. Please choose between rock, paper, or scissors")
+            humanChoice = prompt("Choice invalid. Please choose between rock, paper, or scissors");
         }
     }
 }
+function playRound(humanChoice, computerChoice) {
+    let humanChoiceNum = choices.indexOf(humanChoice);
+    let computerChoiceNum = choices.indexOf(computerChoice);
+
+    let result = (humanChoiceNum - computerChoiceNum) % 3;
+    if (result == 0) {
+        console.log("tie, both players chose " + humanChoice)
+    }
+    else if (result == 1) {
+        console.log("you won, because you chose " + humanChoice + " which beats " + computerChoice)
+    }
+    else {
+        console.log("computer won, because it chose " + computerChoice + " which beats " + humanChoice)
+    }
+    return prompt("play again?").toLowerCase().includes("y");
+}
 
 
-console.log(getComputerChoice());
-console.log(getHumanChoice());
+let choices = ["rock", "paper", "scissors"];
+let humanScore = 0;
+let computerScore = 0;
+let play = true;
+
+while (play == true) {
+    let humanChoice = getHumanChoice();
+    let computerChoice = getComputerChoice();
+    play = playRound(humanChoice, computerChoice)
+}
