@@ -13,10 +13,16 @@ if not play again
 if yes ask the player if they want to play again
 */
 
+let choices = ["rock", "paper", "scissors"];
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice () {
     let randomNumber = Math.floor(Math.random()*3);
     return choices[randomNumber];
 }
+console.log(getComputerChoice())
+
 function getHumanChoice() {
     let humanChoice = prompt("Choose rock, paper, or scissors");
     while (true) {
@@ -31,31 +37,31 @@ function getHumanChoice() {
         }
     }
 }
+console.log(getHumanChoice())
+
 function playRound(humanChoice, computerChoice) {
     let humanChoiceNum = choices.indexOf(humanChoice);
     let computerChoiceNum = choices.indexOf(computerChoice);
 
-    let result = (humanChoiceNum - computerChoiceNum) % 3;
+    let result = (((humanChoiceNum - computerChoiceNum) % 3) + 3) % 3
     if (result == 0) {
         console.log("tie, both players chose " + humanChoice)
-        return result
     }
     else if (result == 1) {
         console.log("you won, because you chose " + humanChoice + " which beats " + computerChoice)
-        return result
+        ++humanScore
     }
     else {
         console.log("computer won, because it chose " + computerChoice + " which beats " + humanChoice)
-        return result
+        ++computerScore
     }
     
 }
-
+playRound("rock", "scissors")
 
 function playGame() {
-    let choices = ["rock", "paper", "scissors"];
-    let humanScore = 0;
-    let computerScore = 0;
+    humanScore = 0;
+    computerScore = 0;
     let play = true;
     while (play == true) {
         for (let i = 0; i < 5; ++i) {
@@ -63,11 +69,13 @@ function playGame() {
             let computerChoice = getComputerChoice();
             play = playRound(humanChoice, computerChoice)
             console.log("the score is " + humanScore +" to " + computerScore)
-            again = prompt("play again?");
         }
+        again = prompt("play again?");
         if (again == null) {
             play = false
         }
         play = again.toLowerCase().includes("y");
     }
 }
+
+   playGame()
