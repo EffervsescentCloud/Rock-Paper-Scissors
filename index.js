@@ -21,7 +21,7 @@ function getComputerChoice () {
     let randomNumber = Math.floor(Math.random()*3);
     return choices[randomNumber];
 }
-console.log(getComputerChoice())
+console.log(getComputerChoice())    // test three
 
 function getHumanChoice() {
     let humanChoice = prompt("Choose rock, paper, or scissors");
@@ -37,7 +37,7 @@ function getHumanChoice() {
         }
     }
 }
-console.log(getHumanChoice())
+console.log(getHumanChoice())       // test one
 
 function playRound(humanChoice, computerChoice) {
     let humanChoiceNum = choices.indexOf(humanChoice);
@@ -49,15 +49,17 @@ function playRound(humanChoice, computerChoice) {
     }
     else if (result == 1) {
         console.log("you won, because you chose " + humanChoice + " which beats " + computerChoice)
-        ++humanScore
+        return 1
     }
     else {
         console.log("computer won, because it chose " + computerChoice + " which beats " + humanChoice)
-        ++computerScore
+        return 2
     }
     
 }
-playRound("rock", "scissors")
+if (playRound("rock", "scissors") == 1) {   //test two
+    console.log(true)
+}
 
 function playGame() {
     humanScore = 0;
@@ -67,7 +69,12 @@ function playGame() {
         for (let i = 0; i < 5; ++i) {
             let humanChoice = getHumanChoice();
             let computerChoice = getComputerChoice();
-            play = playRound(humanChoice, computerChoice)
+            let result = playRound(humanChoice, computerChoice)
+            if (result == 1) {
+                ++humanScore
+            } else if (result == 2) {
+                ++computerScore
+            }
             console.log("the score is " + humanScore +" to " + computerScore)
         }
         again = prompt("play again?");
